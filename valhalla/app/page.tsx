@@ -1,26 +1,53 @@
 'use client';
 
 import { useChat } from 'ai/react';
+import { Spinner } from 'react-bootstrap';
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+export default function Page() {
+  const { messages, input, handleInputChange, handleSubmit, isLoading, stop, error, reload } =
+    useChat({
+      keepLastMessageOnError: true,
+    });
+
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map(m => (
-        <div key={m.id} className="whitespace-pre-wrap">
-          {m.role === 'user' ? 'User: ' : 'AI: '}
-          {m.content}
+    <>
+      {messages.map(message => (
+        <div key={message.id}>
+          {message.role === 'user' ? 'User: ' : 'AI: '}
+          {message.content}
         </div>
       ))}
 
+      {error && (
+        <>
+          <div>An error occurred.</div>
+          <button type="button" onClick={() => reload()}>
+            Retry
+          </button>
+        </>
+      )}
+
+      {isLoading && (
+        <div>
+          <Spinner />
+          <button type="button" onClick={() => stop()}>
+            Stop
+          </button>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl text-black"
+          name="prompt"
           value={input}
-          placeholder="Say something..."
           onChange={handleInputChange}
+          disabled={isLoading}
+          className='bg-neutral-800 text-white '
+
         />
+        <button type="submit">Submit</button>
       </form>
-    </div>
+    </>
   );
 }
