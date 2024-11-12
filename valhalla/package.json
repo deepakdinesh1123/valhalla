@@ -12,8 +12,8 @@
     "@ai-sdk/openai": "^0.0.72",
     "ai": "^3.4.33",
     "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "react@18.3.1",
+    "react-dom": "react-dom@18.3.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
