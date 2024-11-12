@@ -2,7 +2,8 @@ const prompt = `
 Please generate a JSON response containing execution specifications with the following structure:
 
 1. An "ExecutionEnvironmentSpec" schema, which can have:
-   - "languageDependencies" - language dependencies for some languages such as python, ruby.
+   - "languageDependencies" - language dependencies for some languages such as python, ruby. example: requests, click, fastapi, rails etc.
+      Do not add the actual language as dependency here
    - "systemDependencies" - list of nix packages that are to be added to the environment
 
 2. A "ExecSpec" schema that includes:
