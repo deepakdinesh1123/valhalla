@@ -1,0 +1,165 @@
+openapi: 3.0.2
+info:
+  title: API Title
+  version: 0.0.1
+  license:
+    name: MIT
+    url: https://github.com/deepakdinesh1123/valkyrie/blob/main/LICENSE
+servers:
+  - url: http://backend.evnix.cloud/api
+paths:
+  /executions/execute:
+    post:
+      summary: Execute a script
+      description: Execute a script
+      operationId: execute
+      parameters:
+        - $ref: '#/components/parameters/AuthHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecutionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - jobId
+                  - events
+                properties:
+                  jobId:
+                    type: integer
+                    format: int64
+                  events:
+                    type: string
+                    format: url
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /flake/{jobId}:
+    get:
+      summary: Fetch Flake
+      description: Fetches flake of a given job
+      parameters:
+        - in: path
+          name: jobId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Job ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - flake
+                properties:
+                  flake:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Error'
+  
+components:
+  parameters:
+    AuthHeader:
+      name: X-Auth-Token
+      in: header
+      description: Authentication token
+      required: false
+      schema:
+        type: string
+    
+  schemas:
+    EnvironmentVariable:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    ExecutionEnvironmentSpec:
+      type: object
+      properties:
+        environment_variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+        languageDependencies:
+          type: array
+          items:
+            type: string
+        systemDependencies:
+          type: array
+          items:
+            type: string
+        setup:
+          type: string
+    ExecutionRequest:
+      type: object
+      properties:
+        environment:
+          $ref: '#/components/schemas/ExecutionEnvironmentSpec'
+        code:
+          type: string
+        language:
+          type: string
+          default: bash
+        version:
+          type: string
+        max_retries:
+          type: integer
+          format: int4
+          default: 5
+        timeout:
+          type: integer
+          format: int32
+          default: -1
+        cmdLineArgs:
+          type: string
+        compileArgs:
+          type: string
+        command:
+          type: string
+        files:
+          type: string
+          format: byte
+        input:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    
