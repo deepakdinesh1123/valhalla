@@ -21,7 +21,7 @@ async function main() {
     messages.push({ role: 'user', content: userInput });
 
     const result = await streamObject({
-      model: openai('gpt-4o-mini'),
+      model: openai('gpt-3.5-turbo'),
       system: prompt,
       schema: Response,
       messages,
