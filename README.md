@@ -1,8 +1,8 @@
 <div align="center">
 
-#  Valhalla
+# Valhalla
 
-A next-generation code execution platform powered by Odin
+A next-generation code execution platform powered by Odin 
 
 [![Built with Next.js](https://img.shields.io/badge/Built%20with-Next.js-black?style=flat-square)](https://nextjs.org)
 [![Powered by Vercel AI SDK](https://img.shields.io/badge/Powered%20by-Vercel%20AI%20SDK-black?style=flat-square)](https://sdk.vercel.ai/)
@@ -12,8 +12,8 @@ A next-generation code execution platform powered by Odin
 
 ## ✨ Features
 
-- 🤖 **AI-Powered Code Generation** - Intelligent code generation using Vercel's AI SDK
-- ⚡ **Real-Time Execution** - Instant code execution powered by Odin engine
+- 🤖 **AI-Powered Code Generation** - Intelligent code generation using Vercel's AI SDK + Open AI
+- ⚡ **Real-Time Execution** - Instant code execution powered by [Odin](https://odin.evnix.cloud) engine
 - 🔒 **Reproducible Environments** - Automatic `flake.nix` generation for perfect reproducibility
 - 🎯 **Modern Interface** - Clean, responsive UI built with Next.js
 
@@ -40,7 +40,7 @@ cp .env.example .env
 
 3. Add your keys to `.env`:
 ```env
-ODIN_API_KEY=your_api_key_here
+OPEN_API_KEY=your_api_key_here
 # Add other required keys from .env.example
 ```
 
@@ -74,27 +74,28 @@ graph LR
 
 ## 🔧 Reproducible Environments
 
-Every code execution automatically generates a `flake.nix` file, enabling perfect reproducibility of your development environment. To use a generated flake:
+Every code execution automatically generates a `flake.nix` file that can be seen next to the output panel, enabling perfect reproducibility of your development environment. To use a generated flake:
 
 ```bash
-nix develop flake.nix
+nix develop 
 ```
 
 ## 🤝 Getting Help
 
 Need the Odin execution engine API key? Contact us:
-- 💬 Discord: [Join our community](https://discord.gg/example)
+- 💬 Discord: [Join our community](https://discord.gg/9VMKq3rt5C)
+- 🔧 Get odin server locally - [Odin](https://github.com/deepakdinesh1123/valkyrie)
 
-## 📜 License
+<!-- ## 📜 License
 
-MIT License - see [LICENSE](LICENSE) for details
+MIT License - see [LICENSE](LICENSE) for details -->
 
 ---
 
 <div align="center">
   
-Built with ❤️ by the Valhalla Team
-
-[Documentation](docs) • [Contributing](CONTRIBUTING.md) • [Report Bug](issues)
+Built with ❤️ by the Valkyrie Team
+<!-- 
+[Documentation](docs) • [Contributing](CONTRIBUTING.md) • [Report Bug](issues) -->
 
 </div>
