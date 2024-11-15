@@ -6,7 +6,7 @@ export const useCodeExecution = () => {
   const [flakeOutput, setFlakeOutput] = useState<string[]>([]);
   const [eventSource, setEventSource] = useState<EventSource | null>(null);
   const [isOutputLoading, setisOutputLoading] = useState(true);
-  const eventPath = process.env.NEXT_PUBLIC_API_URL;
+  const eventPath = process.env.NEXT_PUBLIC_ODIN_API_URL;
 
   const getFlake = async (jobId: number) => {
     const response = await api.flakeJobIdGet(jobId);
