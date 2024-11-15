@@ -29,7 +29,7 @@ A next-generation code execution platform powered by Odin
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/valhalla.git
+git clone https://github.com/valkyrie-sh/valhalla.git
 cd valhalla
 ```
 
