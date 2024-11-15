@@ -94,9 +94,9 @@ export default function Page() {
       version: object?.execSpec?.version || '',
       code: object?.code || '',
       environment: {
-        systemDependencies: object?.execSpec?.environment?.systemDependencies || [],
-        languageDependencies: object?.execSpec?.environment?.languageDependencies || [],
-      }
+        systemDependencies: (object?.execSpec?.environment?.systemDependencies || []).filter(Boolean) as string[],
+        languageDependencies: (object?.execSpec?.environment?.languageDependencies || []).filter(Boolean) as string[],
+      },
     });
   };
 

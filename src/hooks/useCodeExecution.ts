@@ -18,8 +18,8 @@ export const useCodeExecution = () => {
     version: string;
     code: string;
     environment: {
-      systemDependencies: string[];
-      languageDependencies: string[];
+      systemDependencies: string[] ;
+      languageDependencies: string[] ;
     }
   }) => {
     try {
