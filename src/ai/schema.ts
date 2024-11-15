@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 // ExecutionEnvironmentSpec schema
 const ExecutionEnvironmentSpecSchema = z.object({
-  languageDependencies: z.array(z.string()).optional(),
-  systemDependencies: z.array(z.string()).optional(),
+  languageDependencies: z.array(z.string()).default(["bash"]),
+  systemDependencies: z.array(z.string()).default(["bash"]),
   setup: z.string().optional(),
 });
 
