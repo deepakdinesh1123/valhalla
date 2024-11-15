@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Configuration, DefaultApi } from "@/api-client";
 
 const config = new Configuration({
-  basePath: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+  basePath: `${process.env.NEXT_PUBLIC_ODIN_API_URL}/api`,
 });
 
 const axiosInstance = axios.create({
@@ -14,7 +14,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     config.headers = config.headers || {};
     config.headers['Content-Type'] = 'application/json';
-    config.headers['X-Auth-Token'] = process.env.NEXT_PUBLIC_AUTH_TOKEN;    
+    config.headers['X-Auth-Token'] = process.env.NEXT_PUBLIC_ODIN_AUTH_TOKEN;    
     return config;
   },
   (error) => Promise.reject(error)
