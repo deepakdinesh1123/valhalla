@@ -18,12 +18,15 @@ import { useLanguageVersions } from "@/hooks/useLanguageVersions";
 import { useEffect, useState } from "react";
 import { CheckIcon, ChevronsUpDown, Loader } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { LanguageResponse, LanguageVersion } from "@/api-client";
+// import { LanguageResponse, LanguageVersion } from "@/api-client";
+import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
+import { Language  } from "tsvalkyrie/resources/languages";
+
 
 interface LanguageSelectorProps {
-    selectedLanguage: LanguageResponse | null;
+    selectedLanguage: Language | null;
     selectedLanguageVersion: LanguageVersion | null;
-    onLanguageChange: (language: LanguageResponse) => void;
+    onLanguageChange: (language: Language) => void;
     onVersionChange: (version: LanguageVersion) => void;
 }
 
@@ -53,7 +56,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         b.version.localeCompare(a.version, undefined, { numeric: true, sensitivity: "base" })
     );
 
-    const handleLanguageChange = (language: LanguageResponse) => {
+    const handleLanguageChange = (language: Language) => {
         setSelectedLanguage(language);
         setLanguageOpen(false);
         onLanguageChange(language);

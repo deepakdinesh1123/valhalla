@@ -7,7 +7,7 @@ import { ServerStatusProvider } from "@/components/ServerStatusProvider";
 import AppContainer from "@/components/AppContainer";
 import { useLanguages } from "@/hooks/useLanguages";
 import { useLanguageVersions } from "@/hooks/useLanguageVersions";
-import { LanguageResponse, LanguageVersion } from "@/api-client";
+import { Language  } from "tsvalkyrie/resources/languages";
 import { Button } from "@/components/ui/button";
 import { useCodeExecution } from "@/hooks/useCodeExecution";
 import Terminal from "@/components/Terminal";
@@ -17,11 +17,13 @@ import Announcement from "@/components/Announcement";
 import PackageIcon from '@/assets/package.svg'
 import HelpIcon from '@/assets/help.svg'
 import ValkyrieIcon from '@/assets/valkyrie.svg'
-import ListBuilder from "@/components/ListBuilder";
+// import ListBuilder from "@/components/ListBuilder";
 import { useSystemPackages } from "@/hooks/useSystemPackages";
 import { useLanguagePackages } from "@/hooks/useLanguagePackages";
 import { usePackagesExist } from "@/hooks/usePackageExists";
 import { useDefaultPackages } from "@/hooks/useDefaultPackages";
+import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
+
 import Editor from '@monaco-editor/react';
 
 const App: React.FC = () => {
@@ -55,7 +57,7 @@ const App: React.FC = () => {
   const [currentInput, setCurrentInput] = useState('');
   const [setup, setSetup] = useState('');
   const [command, setCommand] = useState('');
-  const [activeTab, setActiveTab] = useState('dependencies');
+  const [activeTab, setActiveTab] = useState('setup');
 
   useEffect(() => {
     if (pendingVersionChange && existsResponse) {
@@ -65,7 +67,7 @@ const App: React.FC = () => {
   }, [pendingVersionChange, existsResponse]);
 
 
-  const resetOnNewLanguage = useCallback((language: LanguageResponse) => {
+  const resetOnNewLanguage = useCallback((language: Language) => {
     setSelectedLanguage(language);
     setCodeContent(language.default_code);
     setSelectedLanguageDependencies([]);
@@ -107,7 +109,7 @@ const App: React.FC = () => {
     setCodeContent(content);
   }, []);
 
-  const handleLanguageChange = useCallback((language: LanguageResponse) => {
+  const handleLanguageChange = useCallback((language: Language) => {
     resetOnNewLanguage(language);
   }, [resetOnNewLanguage]);
 
@@ -255,12 +257,12 @@ const App: React.FC = () => {
       >
         {/* Tab Navigation */}
         <div className="flex border-b  border-zinc-700 mb-2 ">
-          <button
+          {/* <button
             className={`flex-1 py-2 bg-neutral-900 ${activeTab === 'dependencies' ? 'border-b-2 border-blue-500' : ''}`}
             onClick={() => setActiveTab('dependencies')}
           >
             Dependencies
-          </button>
+          </button> */}
           <button
             className={`flex-1 py-2 bg-neutral-900 ${activeTab === 'setup' ? 'border-b-2 border-blue-500' : ''}`}
             onClick={() => setActiveTab('setup')}
@@ -270,7 +272,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Dependencies Tab Content */}
-        {activeTab === 'dependencies' && (
+        {/* {activeTab === 'dependencies' && (
           <div className="flex-1">
             <div className="flex flex-col gap-2 h-full">
               <div className="flex-1 flex flex-col rounded-md shadow-md p-2">
@@ -298,7 +300,7 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Setup Tab Content */}
         {activeTab === 'setup' && (
