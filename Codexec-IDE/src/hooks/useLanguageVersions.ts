@@ -5,8 +5,6 @@ import { client } from '@/utils/client';
 import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
 import { LanguageRetrieveVersionsResponse } from 'tsvalkyrie/resources/languages';
 
-import { version } from 'os';
-
 export const useLanguageVersions = (languageId: number) => {
   const [languageVersions, setLanguageVersions] = useState<LanguageVersion[]>([]);
   const [selectedLanguageVersion, setSelectedLanguageVersion] = useState<LanguageVersion | null>(null);

@@ -18,10 +18,10 @@ import PackageIcon from '@/assets/package.svg'
 import HelpIcon from '@/assets/help.svg'
 import ValkyrieIcon from '@/assets/valkyrie.svg'
 // import ListBuilder from "@/components/ListBuilder";
-import { useSystemPackages } from "@/hooks/useSystemPackages";
-import { useLanguagePackages } from "@/hooks/useLanguagePackages";
+// import { useSystemPackages } from "@/hooks/useSystemPackages";
+// import { useLanguagePackages } from "@/hooks/useLanguagePackages";
 import { usePackagesExist } from "@/hooks/usePackageExists";
-import { useDefaultPackages } from "@/hooks/useDefaultPackages";
+// import { useDefaultPackages } from "@/hooks/useDefaultPackages";
 import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
 
 import Editor from '@monaco-editor/react';
@@ -34,26 +34,26 @@ const App: React.FC = () => {
   const [codeContent, setCodeContent] = useState<string>("");
   const { terminalOutput, executeCode, isLoading } = useCodeExecution();
   const [selectedLanguageDependencies, setSelectedLanguageDependencies] = useState<string[]>([]);
-  const [selectedSystemDependencies, setSelectedSystemDependencies] = useState<string[]>([]);
+  const [selectedSystemDependencies, ] = useState<string[]>([]);
   const [terminalHeight, setTerminalHeight] = useState<number>(300);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [systemSearchString, setSystemSearchString] = useState<string>("");
-  const [languageSearchString, setLanguageSearchString] = useState<string>("");
+  // const [systemSearchString, setSystemSearchString] = useState<string>("");
+  // const [languageSearchString, setLanguageSearchString] = useState<string>("");
   const [isRequestModalOpen, setIsRequestModalOpen] = useState<boolean>(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const calculatedHeight = `calc(100% - ${terminalHeight}px)`;
   const [isAnnouncmentModalOpen, setIsAnnouncementModalOpen] = useState<boolean>(false);
-  const { systemPackages } = useSystemPackages(systemSearchString);
-  const { languagePackages, resetLanguagePackages } = useLanguagePackages(languageSearchString, selectedLanguageVersion?.search_query || "");
-  const { defaultSystemPackages, defaultLanguagePackages } = useDefaultPackages(selectedLanguageVersion?.search_query || "");
+  // const { systemPackages } = useSystemPackages(systemSearchString);
+  // const { languagePackages, resetLanguagePackages } = useLanguagePackages(languageSearchString, selectedLanguageVersion?.search_query || "");
+  // const { defaultSystemPackages, defaultLanguagePackages } = useDefaultPackages(selectedLanguageVersion?.search_query || "");
   const [pendingVersionChange, setPendingVersionChange] = useState<any>(null);
-  const [resetLanguageDependencies, setResetLanguageDependencies] = useState({});
+  // const [resetLanguageDependencies, setResetLanguageDependencies] = useState({});
   const { existsResponse } = usePackagesExist(
     pendingVersionChange?.search_query || "",
     selectedLanguageDependencies
   );
-  const finalSystemPackages = systemPackages.length > 0 ? systemPackages : defaultSystemPackages;
-  const finalLanguagePackages = languagePackages.length > 0 ? languagePackages : defaultLanguagePackages;
+  // const finalSystemPackages = systemPackages.length > 0 ? systemPackages : defaultSystemPackages;
+  // const finalLanguagePackages = languagePackages.length > 0 ? languagePackages : defaultLanguagePackages;
   const [currentInput, setCurrentInput] = useState('');
   const [setup, setSetup] = useState('');
   const [command, setCommand] = useState('');
@@ -71,9 +71,9 @@ const App: React.FC = () => {
     setSelectedLanguage(language);
     setCodeContent(language.default_code);
     setSelectedLanguageDependencies([]);
-    resetLanguagePackages();
-    setResetLanguageDependencies({});
-  }, [setSelectedLanguage, resetLanguagePackages]);
+    // resetLanguagePackages();
+    // setResetLanguageDependencies({});
+  }, [setSelectedLanguage, ]); //resetLanguagePackages
 
   const handleLanguageChangeEffect = useCallback(
     (version: any, existsResponse: any) => {
