@@ -39,3 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+Codexec-IDE/.env.prod
+Codexec-IDE/.env.dev
