@@ -16,7 +16,6 @@ export const useLanguageVersions = (languageId: number) => {
       // const response = await api.getAllVersions(languageId);
       client.languages.retrieveVersions(languageId)
       .then((res: LanguageRetrieveVersionsResponse) => {
-        console.log(res);
         const LanguageVersionList = res.languageVersions.map((lang) => ({
           language_id: lang.language_id,
           version: lang.version,

@@ -23,18 +23,19 @@ export const useCodeExecution = () => {
   }) => {
     try {
       setIsLoading(true); 
+      console.log(runData);
+      console.log(import.meta.env.VITE_PROTOCOL);
       setTerminalOutput(["Loading..."]);
       client.executions.execute(runData)
       .then((res: ExecutionWSMessage) => {
         setTerminalOutput([res.logs || "No logs available."]);
-        console.log(res);
         setIsLoading(false);
         console.log(res);
+        
       })
       .catch((err: any) => {
         setTerminalOutput([err.message]);
       });
-      console.log(runData);
       
     } catch (error) {
       console.error('Execution failed:', error);
