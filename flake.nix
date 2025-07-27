@@ -16,6 +16,7 @@
         devDependencies = with pkgs; [ 
             nodejs_20
             pnpm
+            yarn
         ] ;
 
         devShells = {
