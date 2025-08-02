@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import debounce from "lodash/debounce";
+import { random } from "lodash";
 
 interface SearchableListBuilderProps {
   items: { name: string; version: string }[];
@@ -168,7 +169,7 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
             <ul className="max-h-40 overflow-y-auto">
               {filteredItems.map((item) => (
                 <li
-                  key={item.name}
+                  key={`${item.name}-${item.version}-${random(1000)}`}
                   className={`px-4 py-2 ${
                     selectedItems.includes(item.name)
                       ? "text-gray-400 cursor-not-allowed bg-stone-700"
