@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '@/utils/api';
+// import { api } from '@/utils/api';
 
 export const useSystemPackages = (searchString: string) => {
   const [systemPackages, setSystemPackages] = useState<{ name: string; version: string }[]>([]);
