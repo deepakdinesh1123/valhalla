@@ -5,7 +5,6 @@ import { getClient } from '@/utils/client';
 import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
 import { LanguageRetrieveVersionsResponse } from 'tsvalkyrie/resources/languages';
 
-const client  = await getClient();
 export const useLanguageVersions = (languageId: number) => {
   const [languageVersions, setLanguageVersions] = useState<LanguageVersion[]>([]);
   const [selectedLanguageVersion, setSelectedLanguageVersion] = useState<LanguageVersion | null>(null);
@@ -15,6 +14,8 @@ export const useLanguageVersions = (languageId: number) => {
 
     try {
       // const response = await api.getAllVersions(languageId);
+      const client  = await getClient();
+
       client.languages.retrieveVersions(languageId)
       .then((res: LanguageRetrieveVersionsResponse) => {
         const LanguageVersionList = res.languageVersions.map((lang) => ({
