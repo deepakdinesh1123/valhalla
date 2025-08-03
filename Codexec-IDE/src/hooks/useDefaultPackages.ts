@@ -1,15 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
-import { api } from '@/utils/api';
+import { useEffect, useState } from 'react';
 
 
-export const useDefaultPackages = (selectedLanguage: string) => {
+export const useDefaultPackages = (_selectedLanguage: string) => {
   const [defaultSystemPackages, setDefaultSystemPackages] = useState<{ name: string; version: string }[]>([]);
-  const [defaultLanguagePackages, setDefaultLanguagePackages] = useState<{ name: string; version: string }[]>([]);
+  const [defaultLanguagePackages] = useState<{ name: string; version: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const functionUrl = import.meta.env.VITE_FUNCTION_URL;
 
-
+  
   useEffect(() => {
     const fetchSystemPackages = async () => {
       setLoading(true);
@@ -31,19 +30,19 @@ export const useDefaultPackages = (selectedLanguage: string) => {
     fetchSystemPackages();
   }, []);
 
-  const fetchLanguagePackages = useCallback(async () => {
-    if (!selectedLanguage) return;
-    try {
-      const response = await api.fetchLanguagePackages(selectedLanguage);
-      setDefaultLanguagePackages(response.data.packages);
-    } catch (error) {
-      console.error('Failed to fetch LanguagePackages:', error);
-    }
-  }, [selectedLanguage]);
+  // const fetchLanguagePackages = useCallback(async () => {
+  //   if (!selectedLanguage) return;
+  //   try {
+  //     const response = await api.fetchLanguagePackages(selectedLanguage);
+  //     setDefaultLanguagePackages(response.data.packages);
+  //   } catch (error) {
+  //     console.error('Failed to fetch LanguagePackages:', error);
+  //   }
+  // }, [selectedLanguage]);
 
-  useEffect(() => {
-    fetchLanguagePackages();
-  }, [fetchLanguagePackages, selectedLanguage]);
+  // useEffect(() => {
+  //   fetchLanguagePackages();
+  // }, [fetchLanguagePackages, selectedLanguage]);
 
   return { defaultSystemPackages, defaultLanguagePackages, loading, error };
 };

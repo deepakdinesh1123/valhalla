@@ -1,9 +1,7 @@
 import { useState} from 'react';
 import {client} from '@/utils/client';
 import { ExecutionWSMessage } from 'tsvalkyrie/resources/executions/types.mjs';
-import { ExecutionRequest } from '@/api-client';
 import { ExecutionExecuteParams } from 'tsvalkyrie/resources/index.mjs';
-import { api } from '@/utils/api';
 
 export const useCodeExecution = () => {
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
