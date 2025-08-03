@@ -1,5 +1,5 @@
 import Tsvalkyrie from 'tsvalkyrie';
-import { api } from './api'; 
+import { api } from './api';
 
 const TOKEN_KEY = 'auth_token';
 const EXPIRY_KEY = 'auth_token_expiry';
@@ -25,13 +25,19 @@ async function getApiKey(): Promise<string> {
   return token;
 }
 
+let clientInstance: Tsvalkyrie | null = null;
 
-const apiKey = await getApiKey(); 
+export async function getClient(): Promise<Tsvalkyrie> {
+  if (clientInstance) return clientInstance;
 
-export const client = new Tsvalkyrie({
-  apiKey,
-  baseURL: import.meta.env.VITE_BASE_PATH,
-  defaultHeaders: {
-    'X-Auth-Token': import.meta.env.VITE_AUTH_TOKEN,
-  },
-});
+  const apiKey = await getApiKey();
+  clientInstance = new Tsvalkyrie({
+    apiKey,
+    baseURL: import.meta.env.VITE_BASE_PATH,
+    defaultHeaders: {
+      'X-Auth-Token': import.meta.env.VITE_AUTH_TOKEN,
+    },
+  });
+
+  return clientInstance;
+}

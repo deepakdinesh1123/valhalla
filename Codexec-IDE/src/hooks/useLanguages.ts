@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import {client} from '@/utils/client';
+import {getClient} from '@/utils/client';
 import { LanguageListResponse, Language } from 'tsvalkyrie/resources/languages';
 
-
+const client =  await getClient();
 export const useLanguages = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null);

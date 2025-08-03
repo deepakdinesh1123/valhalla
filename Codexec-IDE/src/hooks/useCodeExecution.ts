@@ -1,12 +1,13 @@
 import { useState} from 'react';
-import {client} from '@/utils/client';
+import {getClient} from '@/utils/client';
 import { ExecutionWSMessage } from 'tsvalkyrie/resources/executions/types.mjs';
 import { ExecutionExecuteParams } from 'tsvalkyrie/resources/index.mjs';
+
+const client =  await getClient();
 
 export const useCodeExecution = () => {
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   const executeCode = async (runData: ExecutionExecuteParams) => {
     try {

@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 // import { api } from '@/utils/api';
 // import { LanguageVersion } from '@/api-client';
-import { client } from '@/utils/client';
+import { getClient } from '@/utils/client';
 import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
 import { LanguageRetrieveVersionsResponse } from 'tsvalkyrie/resources/languages';
 
+const client  = await getClient();
 export const useLanguageVersions = (languageId: number) => {
   const [languageVersions, setLanguageVersions] = useState<LanguageVersion[]>([]);
   const [selectedLanguageVersion, setSelectedLanguageVersion] = useState<LanguageVersion | null>(null);
