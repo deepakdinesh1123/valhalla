@@ -28,7 +28,7 @@
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
-    "tsvalkyrie": "github:valkyrie-sh/tsvalkyrie"
+    "tsvalkyrie": "^0.0.1-alpha.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

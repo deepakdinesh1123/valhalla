@@ -46,7 +46,7 @@ const App: React.FC = () => {
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const calculatedHeight = `calc(100% - ${terminalHeight}px)`;
   const [isAnnouncmentModalOpen, setIsAnnouncementModalOpen] = useState<boolean>(false);
-  const { systemPackages } = useSystemPackages(systemSearchString);
+  const { systemPackages, loading } = useSystemPackages(systemSearchString);
   
   // const { languagePackages, resetLanguagePackages } = useLanguagePackages(languageSearchString, selectedLanguageVersion?.search_query || "");
   const { defaultSystemPackages} = useDefaultPackages(selectedLanguageVersion?.search_query || ""); //, defaultLanguagePackages 
@@ -56,7 +56,7 @@ const App: React.FC = () => {
     pendingVersionChange?.search_query || "",
     selectedLanguageDependencies
   );
-  const finalSystemPackages = systemPackages.length > 0 ? systemPackages : defaultSystemPackages;
+  const finalSystemPackages = systemPackages != null ? systemPackages : defaultSystemPackages;
   // const finalLanguagePackages = languagePackages.length > 0 ? languagePackages : defaultLanguagePackages;
   const [currentInput, setCurrentInput] = useState('');
   const [setup, setSetup] = useState('');
@@ -286,6 +286,7 @@ const App: React.FC = () => {
                         items={finalSystemPackages}
                         onSelectionChange={setSelectedSystemDependencies}
                         onSearchChange={setSystemSearchString}
+                        loading={loading}
                       />
                     </div>
                   </div>

@@ -13,7 +13,9 @@ interface SearchableListBuilderProps {
   resetTrigger?: any;
   nonExistingPackages?: string[];
   totalPackagesCount?: number;
+  loading?: boolean;
 }
+
 
 const ListBuilder: React.FC<SearchableListBuilderProps> = ({
   items,
@@ -22,6 +24,7 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
   resetTrigger,
   nonExistingPackages = [],
   totalPackagesCount,
+  loading
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -49,7 +52,7 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
       debouncedSearchChange(searchTerm);
       noResultsTimer = setTimeout(() => {
         setShowNoResults(true);
-      }, 500);
+      }, 1000 * 3);
     }
     return () => {
       debouncedSearchChange.cancel();
@@ -61,7 +64,7 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
     if (resetTrigger !== undefined) {
       setSelectedItems([]);
       setSearchTerm("");
-      setIsSearching(false);
+      // setIsSearching(false);
       setShowNoResults(false);
       setHasInteracted(false);
       onSelectionChange([]);
@@ -134,7 +137,7 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
           size={20}
         />
       </div>
-      
+
       <div className="mb-4 flex flex-wrap gap-2">
         {selectedItems.map((itemName) => (
           <Badge
@@ -155,13 +158,30 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
         ))}
       </div>
 
-      
 
-      {items.length === 0 ? (
+      {loading ? (
+        <div className="pl-2 flex flex-row gap-2">
+          <div
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status">
+          </div>
+          <span
+              className=""
+            >Searching...</span>
+        </div>
+      ) : items.length === 0 ? (
         <div className="pl-2">No Packages Available..</div>
       ) : searchTerm !== "" || filteredItems.length > 0 ? (
         isSearching ? (
-          <div className="pl-2">Searching...</div>
+          <div className="pl-2 flex flex-row gap-2">
+          <div
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status">
+          </div>
+          <span
+              className=""
+            >Searching...</span>
+        </div>
         ) : filteredItems.length === 0 && showNoResults ? (
           <div className="pl-2">No results found</div>
         ) : (
@@ -170,11 +190,10 @@ const ListBuilder: React.FC<SearchableListBuilderProps> = ({
               {filteredItems.map((item) => (
                 <li
                   key={`${item.name}-${item.version}-${random(1000)}`}
-                  className={`px-4 py-2 ${
-                    selectedItems.includes(item.name)
+                  className={`px-4 py-2 ${selectedItems.includes(item.name)
                       ? "text-gray-400 cursor-not-allowed bg-stone-700"
                       : "hover:bg-gray-200 hover:text-black cursor-pointer"
-                  }`}
+                    }`}
                   onClick={() =>
                     !selectedItems.includes(item.name) && handleSelect(item)
                   }
