@@ -1,46 +1,27 @@
-import { useState} from 'react';
-import {client} from '@/utils/client';
+import { useState } from 'react';
+import { getClient } from '@/utils/client';
 import { ExecutionWSMessage } from 'tsvalkyrie/resources/executions/types.mjs';
+import { ExecutionExecuteParams } from 'tsvalkyrie/resources/index.mjs';
 
 export const useCodeExecution = () => {
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const executeCode = async (runData: {
-    language: string;
-    version: string;
-    code: string;
-    environment: {
-      systemDependencies: string[];
-      languageDependencies: string[];
-      setup: string;
-    },
-    cmdLineArgs: string;
-    input : string;
-    compilerArgs: string;
-    command: string;    
-    
-  }) => {
+  const executeCode = async (runData: ExecutionExecuteParams) => {
     try {
       setIsLoading(true); 
-      console.log(runData);
-      console.log(import.meta.env.VITE_PROTOCOL);
       setTerminalOutput(["Loading..."]);
-      client.executions.execute(runData)
-      .then((res: ExecutionWSMessage) => {
-        setTerminalOutput([res.logs || "No logs available."]);
-        setIsLoading(false);
-        console.log(res);
-        
-      })
-      .catch((err: any) => {
-        setTerminalOutput([err.message]);
-      });
-      
-    } catch (error) {
-      console.error('Execution failed:', error);
-      setTerminalOutput((prev) => [...prev, 'Execution failed.']);
-      setIsLoading(false); 
+
+      const client = await getClient(); // ✅ moved inside
+      const res: ExecutionWSMessage = await client.executions.execute(runData);
+
+      setTerminalOutput([res.logs || "No logs available."]);
+      console.log(res);
+    } catch (err: any) {
+      console.error('Execution failed:', err);
+      setTerminalOutput([err.message ?? 'Execution failed.']);
+    } finally {
+      setIsLoading(false);
     }
   };
 

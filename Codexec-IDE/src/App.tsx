@@ -20,7 +20,7 @@ import ValkyrieIcon from '@/assets/valkyrie.svg'
 // import ListBuilder from "@/components/ListBuilder";
 // import { useSystemPackages } from "@/hooks/useSystemPackages";
 // import { useLanguagePackages } from "@/hooks/useLanguagePackages";
-import { usePackagesExist } from "@/hooks/usePackageExists";
+// import { usePackagesExist } from "@/hooks/usePackageExists";
 // import { useDefaultPackages } from "@/hooks/useDefaultPackages";
 import { LanguageVersion } from 'tsvalkyrie/resources/language-versions.mjs';
 
@@ -46,17 +46,17 @@ const App: React.FC = () => {
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const calculatedHeight = `calc(100% - ${terminalHeight}px)`;
   const [isAnnouncmentModalOpen, setIsAnnouncementModalOpen] = useState<boolean>(false);
-  const { systemPackages } = useSystemPackages(systemSearchString);
+  const { systemPackages, loading } = useSystemPackages(systemSearchString);
   
   // const { languagePackages, resetLanguagePackages } = useLanguagePackages(languageSearchString, selectedLanguageVersion?.search_query || "");
   const { defaultSystemPackages} = useDefaultPackages(selectedLanguageVersion?.search_query || ""); //, defaultLanguagePackages 
   const [pendingVersionChange, setPendingVersionChange] = useState<any>(null);
   // const [resetLanguageDependencies, setResetLanguageDependencies] = useState({});
-  const { existsResponse } = usePackagesExist(
-    pendingVersionChange?.search_query || "",
-    selectedLanguageDependencies
-  );
-  const finalSystemPackages = systemPackages.length > 0 ? systemPackages : defaultSystemPackages;
+  // const { existsResponse } = usePackagesExist(
+  //   pendingVersionChange?.search_query || "",
+  //   selectedLanguageDependencies
+  // );
+  const finalSystemPackages = systemPackages != null ? systemPackages : defaultSystemPackages;
   // const finalLanguagePackages = languagePackages.length > 0 ? languagePackages : defaultLanguagePackages;
   const [currentInput, setCurrentInput] = useState('');
   const [setup, setSetup] = useState('');
@@ -64,11 +64,11 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('setup');
 
   useEffect(() => {
-    if (pendingVersionChange && existsResponse) {
-      handleLanguageChangeEffect(pendingVersionChange, existsResponse);
+    if (pendingVersionChange ) { //&& existsResponse
+      handleLanguageChangeEffect(pendingVersionChange); //, existsResponse);
       setPendingVersionChange(null);
     }
-  }, [pendingVersionChange, existsResponse]);
+  }, [pendingVersionChange ]); //existsResponse
 
 
   const resetOnNewLanguage = useCallback((language: Language) => {
@@ -80,18 +80,18 @@ const App: React.FC = () => {
   }, [setSelectedLanguage,]); //resetLanguagePackages
 
   const handleLanguageChangeEffect = useCallback(
-    (version: any, existsResponse: any) => {
+    (version: any, ) => { //, existsResponse: any) => {
       if (version !== selectedLanguageVersion) {
-        if (existsResponse.exists) {
-          setSelectedLanguageVersion(version);
-        } else {
-          const nonExistingPackages = existsResponse.nonExistingPackages;
-          setSelectedLanguageDependencies(prev =>
-            prev.filter(dep => !nonExistingPackages.includes(dep))
-          );
+        // if (existsResponse.exists) {
+        //   setSelectedLanguageVersion(version);
+        // } else {
+          // const nonExistingPackages = existsResponse.nonExistingPackages;
+          // setSelectedLanguageDependencies(prev =>
+          //   prev.filter(dep => !nonExistingPackages.includes(dep))
+          // );
           setSelectedLanguageVersion(version);
         }
-      }
+        
     },
     [
       selectedLanguage,
@@ -120,11 +120,11 @@ const App: React.FC = () => {
   const handleVersionChange = useCallback((version: LanguageVersion) => {
     if (version !== selectedLanguageVersion) {
       setPendingVersionChange(version);
-      const nonExistingPackages = existsResponse?.nonExistingPackages || [];
+      // const nonExistingPackages = existsResponse?.nonExistingPackages || [];
       setSelectedLanguageVersion(version);
-      setSelectedLanguageDependencies((prev) => prev.filter(dep => !nonExistingPackages.includes(dep)));
+      // setSelectedLanguageDependencies((prev) => prev.filter(dep => !nonExistingPackages.includes(dep)));
     }
-  }, [selectedLanguageVersion, existsResponse]);
+  }, [selectedLanguageVersion]); //existsResponse
 
 
   const handleRunCode = useCallback(() => {
@@ -286,6 +286,7 @@ const App: React.FC = () => {
                         items={finalSystemPackages}
                         onSelectionChange={setSelectedSystemDependencies}
                         onSearchChange={setSystemSearchString}
+                        loading={loading}
                       />
                     </div>
                   </div>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import {client} from '@/utils/client';
+import {getClient} from '@/utils/client';
 import { LanguageListResponse, Language } from 'tsvalkyrie/resources/languages';
-
 
 export const useLanguages = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
@@ -12,6 +11,8 @@ export const useLanguages = () => {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
+      const client =  await getClient();
+
         client.languages.list()
         .then((res: LanguageListResponse) => {
           const languageList = res.languages.map((lang) => ({

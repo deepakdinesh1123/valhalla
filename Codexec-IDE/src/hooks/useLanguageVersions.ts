@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 // import { api } from '@/utils/api';
 // import { LanguageVersion } from '@/api-client';
-import { client } from '@/utils/client';
+import { getClient } from '@/utils/client';
 import { LanguageVersion} from 'tsvalkyrie/resources/language-versions.mjs';
 import { LanguageRetrieveVersionsResponse } from 'tsvalkyrie/resources/languages';
 
@@ -14,6 +14,8 @@ export const useLanguageVersions = (languageId: number) => {
 
     try {
       // const response = await api.getAllVersions(languageId);
+      const client  = await getClient();
+
       client.languages.retrieveVersions(languageId)
       .then((res: LanguageRetrieveVersionsResponse) => {
         const LanguageVersionList = res.languageVersions.map((lang) => ({
