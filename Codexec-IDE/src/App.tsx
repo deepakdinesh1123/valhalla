@@ -16,7 +16,6 @@ import RequestPackageModal from "@/components/RequestModal";
 import Announcement from "@/components/Announcement";
 import PackageIcon from '@/assets/package.svg'
 import HelpIcon from '@/assets/help.svg'
-import ValkyrieIcon from '@/assets/valkyrie.svg'
 // import ListBuilder from "@/components/ListBuilder";
 // import { useSystemPackages } from "@/hooks/useSystemPackages";
 // import { useLanguagePackages } from "@/hooks/useLanguagePackages";
