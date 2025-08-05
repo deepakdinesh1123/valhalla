@@ -1,10 +1,11 @@
-import { api } from '@/utils/api';
+import { getClient } from './client';
 
 
 export const checkServerHealth = async (): Promise<boolean> => {
     try {
-      const response = await api.getVersion();
-      return response.status === 200;
+      const client = await getClient();
+      const response = await client.version.retrieve();
+      return response.version !== "";
     } catch (error) {
       return false;
     }
