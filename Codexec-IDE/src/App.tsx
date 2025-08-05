@@ -163,12 +163,12 @@ const App: React.FC = () => {
       <AppContainer>
         <div className="flex h-screen relative">
           <div className="absolute top-0 right-0 z-10 ">
-            <img
+            {/* <img
               src={ValkyrieIcon}
               className="h-12 object-cove mr-2 pt-3 pr-20"
               alt="Valkyrie"
               style={{ objectPosition: 'top' }}
-            />
+            /> */}
           </div>
           <div className="editor-container flex-1 w-full">
             <div className="top-bar flex flex-wrap justify-between items-center p-2 pt-4 bg-transparent mr-32">
