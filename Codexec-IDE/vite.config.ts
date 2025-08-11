@@ -14,9 +14,8 @@ export default defineConfig(({ mode }) => {
     },
 
     define: {
-      "process.env": {
-        ...env,
-      },
+      'process.env.VITE_WS_HOST': JSON.stringify(env.VITE_WS_HOST),
+      'process.env.VITE_WS_PROTOCOL': JSON.stringify(env.VITE_WS_PROTOCOL),
     },
   };
 });

@@ -4,6 +4,8 @@ import { Configuration, DefaultApi } from "@/api-client";
 const config = new Configuration({
   basePath: `${import.meta.env.VITE_BASE_PATH}`,
 });
+console.log("VITE_BASE_PATH at runtime:", import.meta.env.VITE_BASE_PATH);
+console.log("VITE_WS_HOST at runtime:", process.env.VITE_WS_HOST);
 
 const axiosInstance = axios.create({
   baseURL: config.basePath,
